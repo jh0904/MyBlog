@@ -153,15 +153,11 @@ a.lastAndNext:hover {
     margin-top: 30px;
     text-align: left;
     padding: 15px 7px;
-    background-color: #aed9d3;
+    background-color: #99CCFF;
     font-size: 16px;
-    font-family: 楷体;
+    font-family: 华文仿宋, serif;
 }
 
-.article-i-say-me {
-    margin-right: 15px;
-    float: right;
-}
 
 .show-weixin-pic {
     text-align: center;

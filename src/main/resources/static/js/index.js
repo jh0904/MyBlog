@@ -3,7 +3,7 @@
     var siteLastUpdateTime = '2019年03月22日19点';
 
     //网站开始时间
-    var siteBeginRunningTime = '2018-07-25 20:00:00';
+    var siteBeginRunningTime = '2019-01-1 20:00:00';
 
     // 广告上下滚动
     function getStyle(obj,name){
@@ -124,8 +124,6 @@
                 var articleTag = $('<i class="am-icon-tag"><a class="tag" href="/tags?tag=' + obj['articleTags'][i] + '"> ' + obj['articleTags'][i] + '</a></i>');
                 articleTags.eq(index).append(articleTag);
             }
-            // var likes = $('<span class="likes"><i class="am-icon-heart"> ' + obj['likes'] + '个喜欢</i></span>');
-            // articleTags.eq(index).append(likes);
         }
     })
 
@@ -299,8 +297,8 @@
 
     //点击扫描二维码时获取二维码图片
     $('.myCardBtn').click(function () {
-        $('.qq_code').attr("src","https://zhy-myblog.oss-cn-shenzhen.aliyuncs.com/static/img/qq_code.png");
-        $('.weixin_code').attr("src","https://zhy-myblog.oss-cn-shenzhen.aliyuncs.com/static/img/weixin_code.png");
+        $('.qq_code').attr("src","https://blog-myblog.oss-cn-shenzhen.aliyuncs.com/static/img/qq_code.png");
+        $('.weixin_code').attr("src","https://blog-myblog.oss-cn-shenzhen.aliyuncs.com/static/img/weixin_code.png");
     });
 
     ajaxFirst(1);

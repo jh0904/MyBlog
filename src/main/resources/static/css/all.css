@@ -79,7 +79,12 @@
     flex-grow: 1;
     margin-bottom: 50px;
 }
-
+/*搜索框*/
+.searchBox{
+    display: block;
+    margin-top: 7px;
+    margin-bottom: 4px;
+}
 a.top_bar:hover{
     color: #38b7ea;
 }
