@@ -28,5 +28,9 @@ public interface CategoryService {
      */
     int countCategoriesNum();
 
-
+    /**
+     * 获得所有的标签
+     * @return
+     */
+    JSONArray findTagsName();
 }

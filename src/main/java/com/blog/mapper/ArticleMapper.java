@@ -37,6 +37,9 @@ public interface ArticleMapper {
     @Select("select articleId,originalAuthor,articleTags,articleTitle,articleType,publishDate,originalAuthor,articleCategories,articleTabloid,likes from article order by id desc")
     List<Article> findAllArticles();
 
+    @Select("select articleId,originalAuthor,articleTags,articleTitle,articleType,publishDate,originalAuthor,articleCategories,articleTabloid,likes from article where articleTitle like '%${key}%' order by id desc")
+    List<Article> findSearchArticles(@Param("key")String key);
+
     @Select("select articleId from article order by id desc limit 1")
     Article findEndArticleId();
 

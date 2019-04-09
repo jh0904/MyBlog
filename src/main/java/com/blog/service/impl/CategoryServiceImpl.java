@@ -51,4 +51,9 @@ public class CategoryServiceImpl implements CategoryService {
         return categoryMapper.countCategoriesNum();
     }
 
+    @Override
+    public JSONArray findTagsName() {
+        List<String> tagsName = categoryMapper.findTagsName();
+        return JSONArray.fromObject(tagsName);
+    }
 }

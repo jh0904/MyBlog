@@ -44,18 +44,20 @@ public class IndexControl {
 
     /**
      * 增加访客量
-     * @return  网站总访问量以及访客量
+     *
+     * @return 网站总访问量以及访客量
      */
     @GetMapping("/getVisitorNumByPageName")
-    public @ResponseBody JSONObject getVisitorNumByPageName(HttpServletRequest request,
-                                                  @RequestParam("pageName") String pageName) throws UnsupportedEncodingException {
+    public @ResponseBody
+    JSONObject getVisitorNumByPageName(HttpServletRequest request,
+                                       @RequestParam("pageName") String pageName) throws UnsupportedEncodingException {
 
         int index = pageName.indexOf("?");
-        if(index == -1){
+        if (index == -1) {
             pageName = "visitorVolume";
         } else {
             String subPageName = pageName.substring(0, index);
-            if("archives".equals(subPageName) || "categories".equals(subPageName) || "tags".equals(subPageName) || "login".equals(subPageName) || "register".equals(subPageName)){
+            if ("archives".equals(subPageName) || "categories".equals(subPageName) || "tags".equals(subPageName) || "login".equals(subPageName) || "register".equals(subPageName)) {
                 pageName = "visitorVolume";
             } else {
                 //接收到文章的url将url中utf8的16进制数转换成汉字
@@ -70,14 +72,28 @@ public class IndexControl {
 
     /**
      * 分页获得当前页文章
-     * @param rows 一页的大小
+     *
+     * @param rows    一页的大小
      * @param pageNum 当前页
      */
     @PostMapping("/myArticles")
-    public @ResponseBody JSONArray myArticles(@RequestParam("rows") String rows,
-                                @RequestParam("pageNum") String pageNum){
+    public @ResponseBody
+    JSONArray myArticles(@RequestParam("rows") String rows,
+                         @RequestParam("pageNum") String pageNum) {
 
         return articleService.findAllArticles(rows, pageNum);
+
+    }
+
+    /**
+     * 关键字搜索
+     */
+    @GetMapping("/search")
+    public @ResponseBody
+    JSONArray searchArticles(@RequestParam("msg") String msg) {
+        System.out.println("-----");
+        System.out.println(msg);
+        return articleService.searchArticles(msg);
 
     }
 
@@ -87,7 +103,7 @@ public class IndexControl {
     @GetMapping("/newComment")
     @ResponseBody
     public JSONObject newComment(@RequestParam("rows") String rows,
-                                @RequestParam("pageNum") String pageNum){
+                                 @RequestParam("pageNum") String pageNum) {
 
         return commentService.findFiveNewComment(Integer.parseInt(rows),Integer.parseInt(pageNum));
     }
@@ -98,8 +114,8 @@ public class IndexControl {
     @GetMapping("/newLeaveWord")
     @ResponseBody
     public JSONObject newLeaveWord(@RequestParam("rows") String rows,
-                                   @RequestParam("pageNum") String pageNum){
-        return leaveMessageService.findFiveNewComment(Integer.parseInt(rows),Integer.parseInt(pageNum));
+                                   @RequestParam("pageNum") String pageNum) {
+        return leaveMessageService.findFiveNewComment(Integer.parseInt(rows), Integer.parseInt(pageNum));
     }
 
     /**
@@ -107,7 +123,7 @@ public class IndexControl {
      */
     @GetMapping("/findTagsCloud")
     @ResponseBody
-    public JSONObject findTagsCloud(){
+    public JSONObject findTagsCloud() {
         return tagService.findTagsCloud();
     }
 
@@ -116,7 +132,7 @@ public class IndexControl {
      */
     @GetMapping("/findArchivesCategoriesTagsNum")
     @ResponseBody
-    public JSONObject findArchivesCategoriesTagsNum(){
+    public JSONObject findArchivesCategoriesTagsNum() {
         JSONObject jsonObject = new JSONObject();
         jsonObject.put("tagsNum", tagService.countTagsNum());
         jsonObject.put("categoriesNum", categoryService.countCategoriesNum());
@@ -126,7 +142,7 @@ public class IndexControl {
 
     @GetMapping("/getSiteInfo")
     @ResponseBody
-    public JSONObject getSiteInfo(){
+    public JSONObject getSiteInfo() {
         JSONObject jsonObject = new JSONObject();
         jsonObject.put("articleNum", articleService.countArticle());
         jsonObject.put("tagsNum", tagService.countTagsNum());
@@ -137,6 +153,7 @@ public class IndexControl {
 
     /**
      * 反馈
+     *
      * @param feedBack
      * @param principal
      * @return
@@ -144,13 +161,13 @@ public class IndexControl {
     @PostMapping("/submitFeedback")
     @ResponseBody
     public JSONObject submitFeedback(FeedBack feedBack,
-                                     @AuthenticationPrincipal Principal principal){
+                                     @AuthenticationPrincipal Principal principal) {
         String username;
         try {
             username = principal.getName();
-        } catch (NullPointerException e){
+        } catch (NullPointerException e) {
             JSONObject jsonObject = new JSONObject();
-            jsonObject.put("status",403);
+            jsonObject.put("status", 403);
             return jsonObject;
         }
         feedBack.setPersonId(userService.findIdByUsername(username));

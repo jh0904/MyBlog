@@ -53,7 +53,6 @@ public class ArticleServiceImpl implements ArticleService {
                 article.setOriginalAuthor(article.getAuthor());
             }
             if("".equals(article.getArticleUrl())){
-//                String url = "http://localhost/findArticle?articleId=" + article.getArticleId() + "&originalAuthor=" + article.getOriginalAuthor();
                 String url = "https://www.zhyocean.cn/findArticle?articleId=" + article.getArticleId() + "&originalAuthor=" + article.getOriginalAuthor();
                 article.setArticleUrl(url);
             }
@@ -205,6 +204,30 @@ public class ArticleServiceImpl implements ArticleService {
         thisPageInfo.put("isFirstPage",pageInfo.isIsFirstPage());
         thisPageInfo.put("isLastPage",pageInfo.isIsLastPage());
 
+        jsonArray.add(thisPageInfo);
+        return jsonArray;
+    }
+    @Override
+    public JSONArray searchArticles(String key) {
+
+        List<Article> articles = articleMapper.findSearchArticles(key);
+        List<Map<String, Object>> newArticles = new ArrayList<>();
+        Map<String, Object> map;
+        for(Article article : articles){
+            map = new HashMap<>();
+            map.put("thisArticleUrl", "/findArticle?articleId=" + article.getArticleId() + "&originalAuthor=" + article.getOriginalAuthor());
+            map.put("articleTags",StringAndArray.stringToArray(article.getArticleTags()));
+            map.put("articleTitle", article.getArticleTitle());
+            map.put("articleType", article.getArticleType());
+            map.put("publishDate", article.getPublishDate());
+            map.put("originalAuthor", article.getOriginalAuthor());
+            map.put("articleCategories", article.getArticleCategories());
+            map.put("articleTabloid", article.getArticleTabloid());
+            map.put("likes", article.getLikes());
+            newArticles.add(map);
+        }
+        JSONArray jsonArray = JSONArray.fromObject(newArticles);
+        Map<String, Object> thisPageInfo = new HashMap<>();
         jsonArray.add(thisPageInfo);
         return jsonArray;
     }

@@ -198,6 +198,7 @@
     // var registerForm = $("#registerForm");
     registerFormBtn.click(function () {
         var phone_value = $("#phone").val();
+        alert(phone_value)
         var auth_code_value = $("#auth_code").val();
         var username_value = $("#username").val();
         var password_value = $("#password").val();

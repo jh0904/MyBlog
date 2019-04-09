@@ -67,7 +67,7 @@ public class GetPhoneCodeControl {
         //填写接收方的手机号码
         request.setPhoneNumbers(phoneNumber);
         //此处填写已申请的短信签名
-        request.setSignName("IT_Club");
+        request.setSignName("ITclub");
         //此处填写获得的短信模版CODE
         request.setTemplateCode(msgCode);
         //笔者的短信模版中有${code}, 因此此处对应填写验证码

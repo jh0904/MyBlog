@@ -98,7 +98,7 @@ public interface UserService {
 
     /**
      * 获得头像url
-     * @param username
+     * @param id
      * @return
      */
     JSONObject getHeadPortraitUrl(int id);

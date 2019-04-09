@@ -33,17 +33,16 @@
 
                 <div class="am-collapse am-topbar-collapse" id="doc-topbar-collapse" style="text-align: center">
 
-                    <div class="editor-title"><i class="editor-welcome">Welcome to</i><i class="editor-title-name">张先森</i><i class="editor-title-words">的创作中心</i></div>
+                    <div class="editor-title"><i class="editor-welcome">Welcome to</i><i class="editor-title-name">IT_Club</i><i class="editor-title-words">的创作中心</i></div>
 
                     <div class="am-topbar-right" th:if="${#httpServletRequest.remoteUser}">
                         <div class="am-dropdown" data-am-dropdown="{boundary: '.am-topbar'}">
                             <span class="personalSpace am-btn am-btn-secondary am-topbar-btn am-btn-sm am-dropdown-toggle" data-am-dropdown-toggle><span sec:authentication="name"></span> <span class="am-icon-caret-down"></span></span>
                             <ul class="am-dropdown-content">
-                                <li><a href="/user">个人主页</a></li>
-                                <li><a href="#">账户管理</a></li>
-
+                                <li><a href="/user" sec:authorize="hasRole('ROLE_USER')">个人主页</a></li>
+                                <li><a href="/superadmin" sec:authorize="hasRole('ROLE_SUPERADMIN')">网站后台管理</a></li>
                                 <li><a class="feedbackClick">反馈</a></li>
-                                <hr style="margin: 0">
+                                <hr style="margin: 10px 0 5px 0;">
                                 <li><a th:href="@{/logout}">退出登录</a></li>
                             </ul>
                         </div>
@@ -65,13 +64,13 @@
             </div>
         </div>
         <div id="writeArticle">
-            <div class="zhy-editor">
-                <div class="zhy-editor-input">
-                    <input id="zhy-editor-title" type="text" placeholder="输入文章标题">
+            <div class="blog-editor">
+                <div class="blog-editor-input">
+                    <input id="blog-editor-title" type="text" placeholder="输入文章标题">
                     <button type="button" class="publishBtn am-btn am-btn-danger">发布博客</button>
                 </div>
             </div>
-            <div class="zhy-editor-writing">
+            <div class="blog-editor-writing">
                 <!--MarkDown的id标志 -->
                 <div id="my-editormd">
                     <!-- 书写与实时显示的textarea -->
@@ -104,7 +103,7 @@
                         <div class="tags">
                             <div class="tag-inline">
                                 <label class="publish-tag">文章标签<strong>:</strong></label>
-                                <div class="tag">
+                                <div class="tag" id="publish-tags">
 
                                 </div>
                                 <button class="addTagsBtn">

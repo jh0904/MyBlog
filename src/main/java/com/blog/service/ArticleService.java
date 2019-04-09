@@ -55,6 +55,13 @@ public interface ArticleService {
     JSONArray findAllArticles(String rows, String pageNo);
 
     /**
+     * 分页获得搜索文章
+     * @return 该页所有文章
+     */
+    JSONArray searchArticles(String key);
+
+
+    /**
      * 通过文章id更新它的上一篇或下一篇文章id
      * @param lastOrNext
      * @param lastOrNextArticleId

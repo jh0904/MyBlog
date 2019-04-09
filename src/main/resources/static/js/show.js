@@ -62,18 +62,18 @@
         $('.article-tags').append(tags);
 
         if(data.lastStatus == "200"){
-            var articleLast200 = $('<i class="am-icon-angle-left am-icon-sm"></i>&nbsp;&nbsp;<a class="lastAndNext" href="' + data.lastArticleUrl +'">' + data.lastArticleTitle + '</a>');
-            $('.article-last').append(articleLast200);
+            var articleLast200 = $('<a class="lastAndNext" href="' + data.lastArticleUrl +'">' + data.lastArticleTitle + '</a>&nbsp;&nbsp;<i class="am-icon-angle-right am-icon-sm"></i>');
+            $('.article-next').append(articleLast200);
         } else {
-            var articleLast500 = $('<i class="am-icon-angle-left am-icon-sm"></i>&nbsp;&nbsp;<a  class="lastAndNext">' + data.lastInfo + '</a>');
-            $('.article-last').append(articleLast500);
+            var articleLast500 = $('<a  class="lastAndNext">' + data.lastInfo + '</a>&nbsp;&nbsp;<i class="am-icon-angle-right am-icon-sm"></i>');
+            $('.article-next').append(articleLast500);
         }
         if(data.nextStatus == "200"){
-            var articleNext200 = $('<a class="lastAndNext" href="' + data.nextArticleUrl +'">' + data.nextArticleTitle + '</a>' + '&nbsp;&nbsp;<i class="am-icon-angle-right am-icon-sm"></i>');
-            $('.article-next').append(articleNext200);
+            var articleNext200 = $('<i class="am-icon-angle-left am-icon-sm"></i>&nbsp;&nbsp;<a class="lastAndNext" href="' + data.nextArticleUrl +'">' + data.nextArticleTitle + '</a>');
+            $('.article-last').append(articleNext200);
         } else {
-            var articleNext500 = $('<a  class="lastAndNext">' + data.nextInfo + '</a>' + '&nbsp;&nbsp;<i class="am-icon-angle-right am-icon-sm"></i>');
-            $('.article-next').append(articleNext500);
+            var articleNext500 = $('<i class="am-icon-angle-left am-icon-sm"></i>&nbsp;&nbsp;<a  class="lastAndNext">' + data.nextInfo + '</a>');
+            $('.article-last').append(articleNext500);
         }
 
 

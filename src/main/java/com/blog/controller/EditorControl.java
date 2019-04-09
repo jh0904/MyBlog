@@ -74,8 +74,7 @@ public class EditorControl {
             return returnJson;
         }
 
-        String phone = userService.findPhoneByUsername(username);
-        if(!userService.isSuperAdmin(phone)){
+        if(userService.findPhoneByUsername(username).isEmpty()){
             returnJson.put("status",500);
             return returnJson;
         }
@@ -135,8 +134,7 @@ public class EditorControl {
         } catch (NullPointerException e){
             logger.info("This user is not login");
         }
-        String phone = userService.findPhoneByUsername(username);
-        if(userService.isSuperAdmin(phone)){
+        if(!userService.findPhoneByUsername(username).isEmpty()){
             return 1;
         }
         return 0;
@@ -150,6 +148,16 @@ public class EditorControl {
     @ResponseBody
     public JSONArray findCategoriesName(){
         return categoryService.findCategoriesName();
+    }
+
+    /**
+     * 获得所有的分类
+     * @return
+     */
+    @GetMapping("/findTagsName")
+    @ResponseBody
+    public JSONArray findTagsName(){
+        return categoryService.findTagsName();
     }
 
     /**
