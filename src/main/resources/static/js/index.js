@@ -228,38 +228,24 @@ function ajaxFirst(currentPage) {
     });
 }
 
-// //搜索分页请求
-// function ajaxFirst(currentPage) {
-//     //加载时请求
-//     $.ajax({
-//         type: 'POST',
-//         url: '/search',
-//         dataType: 'json',
-//         data: {
-//             rows: "10",
-//             pageNum: currentPage
-//         },
-//         success: function (data) {
-//             //放入数据
-//             putInArticle(data);
-//             scrollTo(0, 0);//回到顶部
-//
-//             //分页
-//             $("#pagination").paging({
-//                 rows: data[data.length - 1]['pageSize'],//每页显示条数
-//                 pageNum: data[data.length - 1]['pageNum'],//当前所在页码
-//                 pages: data[data.length - 1]['pages'],//总页数
-//                 total: data[data.length - 1]['total'],//总记录数
-//                 callback: function (currentPage) {
-//                     ajaxFirst(currentPage);
-//                 }
-//             });
-//         },
-//         error: function () {
-//             alert("获得文章信息失败！");
-//         }
-//     });
-// }
+//搜索分页请求
+function search() {
+    //加载时请求
+    $.ajax({
+        type: 'GET',
+        url: '/search',
+        dataType: 'json',
+        data: $('#form1').serialize(),
+        success: function (data) {
+            //放入数据
+            putInArticle(data);
+            scrollTo(0, 0);//回到顶部
+        },
+        error: function () {
+            alert("获得文章信息失败！");
+        }
+    });
+}
 
 function newCommentAjax(currentPage) {
     //最新评论

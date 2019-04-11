@@ -211,6 +211,7 @@ public class ArticleServiceImpl implements ArticleService {
     public JSONArray searchArticles(String key) {
 
         List<Article> articles = articleMapper.findSearchArticles(key);
+        System.out.println(articles);
         List<Map<String, Object>> newArticles = new ArrayList<>();
         Map<String, Object> map;
         for(Article article : articles){

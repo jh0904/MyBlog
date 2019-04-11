@@ -33,7 +33,7 @@
                     data-am-collapse="{target: '#doc-topbar-collapse'}"><span class="am-sr-only">导航切换</span> <span
                     class="am-icon-bars"></span></button>
             <div class="am-collapse am-topbar-collapse" id="doc-topbar-collapse">
-                <from action="/search" method="get" class="am-form">
+                <form id="form1" action="#" th:action="@{/search}" onsubmit="return false" method="get" class="am-form">
                     <ul class="am-nav am-nav-pills am-topbar-nav">
                         <li><a class="top_bar" href="/" style="cursor: pointer;"><span class="am-icon-home"></span>&nbsp;首页</a>
                         </li>
@@ -42,14 +42,15 @@
                         <li><a class="top_bar" href="/tags" style="cursor: pointer;"><span class="am-icon-tags"></span>&nbsp;标签</a>
                         </li>
                         <li><label>
-                            <input type="text" name="msg" class="am-form-field am-round searchBox"
+                            <input type="text" th:name="msg" th:id="msg" class="am-form-field am-round searchBox"
                                        placeholder="请输入关键字搜索"/>
                         </label></li>
                         <li>
-                            <button type="submit" class="am-btn am-btn-primary am-round searchBox ">搜索</button>
+                            <input type="button" value="搜索" onclick="search()" class="am-btn am-btn-primary am-round searchBox "/>
                         </li>
                     </ul>
-                </from>
+                </form>
+
                 <div class="am-topbar-right" th:if="${#httpServletRequest.remoteUser}">
                     <div class="am-dropdown" data-am-dropdown="{boundary: '.am-topbar'}">
                         <button class="personalSpace am-btn am-btn-secondary am-topbar-btn am-btn-sm am-dropdown-toggle"

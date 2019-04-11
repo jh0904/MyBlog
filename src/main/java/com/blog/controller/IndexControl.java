@@ -89,10 +89,9 @@ public class IndexControl {
      * 关键字搜索
      */
     @GetMapping("/search")
-    public @ResponseBody
-    JSONArray searchArticles(@RequestParam("msg") String msg) {
-        System.out.println("-----");
-        System.out.println(msg);
+    @ResponseBody
+    public JSONArray searchArticles(@RequestParam("msg") String msg) {
+
         return articleService.searchArticles(msg);
 
     }
