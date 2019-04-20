@@ -2,6 +2,8 @@ package com.blog;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.builder.SpringApplicationBuilder;
+import org.springframework.boot.web.support.SpringBootServletInitializer;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 /**
@@ -9,13 +11,18 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
  */
 @SpringBootApplication
 @EnableTransactionManagement
-public class MyBlogApplication {
+public class MyBlogApplication extends SpringBootServletInitializer {
 
 	public static void main(String[] args) {
 		SpringApplication.run(MyBlogApplication.class, args);
 	}
 
-//	配置http自动转向https
+	@Override
+	protected SpringApplicationBuilder configure(SpringApplicationBuilder builder) {
+		return builder.sources(this.getClass());
+	}
+
+	//	配置http自动转向https
 //	@Component
 //	public static class CustomServletContainer implements EmbeddedServletContainerCustomizer {
 //
