@@ -242,9 +242,6 @@ surePublishBtn.click(function () {
     for (var j = 0; j < tagNum; j++) {
         articleTagsValue[j] = $('.tag-name').eq(j).html();
     }
-    if (articleTagsValue.length>5){
-        alert("标签数量不正确")
-    }
     var articleTypeValue = articleType.val();
     var articleCategoriesValue = articleCategories.val();
     var articleGradeValue = articleGrade.val();
@@ -252,7 +249,9 @@ surePublishBtn.click(function () {
     var articleUrlValue = articleUrl.val();
     if (articleTagsValue.length === 0 || articleTagsValue[tagNum - 1] === "") {
         $('.notice-box-tags').show();
-    } else if (articleTypeValue === "choose") {
+    } else if(articleTagsValue.length > 5){
+        $('.noticeLength-box-tags').show();
+    }else if (articleTypeValue === "choose") {
         $('.notice-box-type').show();
     } else if (articleCategoriesValue === "choose") {
         $('.notice-box-categories').show();
