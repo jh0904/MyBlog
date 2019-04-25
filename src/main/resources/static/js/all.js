@@ -118,24 +118,7 @@
         }
     });
 
-    //点击右侧栏获得日志、分类、标签数目以及微信公众号图片
-    $('#sidebar_toggle').click(function () {
-        $.ajax({
-            type:'get',
-            url:'/findArchivesCategoriesTagsNum',
-            dataType:'json',
-            data:{
-            },
-            success:function (data) {
-                $('.archivesNum').html(data['archivesNum']);
-                $('.categoriesNum').html(data['categoriesNum']);
-                $('.tagsNum').html(data['tagsNum']);
-            },
-            error:function () {
-            }
-        });
-        $('.weixinPublic').attr("src","https://blog-myblog.oss-cn-shenzhen.aliyuncs.com/static/img/weixin.jpg");
-    });
+
 
 
     //反馈
