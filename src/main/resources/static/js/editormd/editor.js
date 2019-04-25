@@ -64,10 +64,11 @@ publishBtn.click(function () {
             success: function (data) {
                 var selectTags = $('#publish-tags');
                 selectTags.empty();
-                selectTags.append("<span>已有标签：</span>")
                 for (var i = 0; i < data.length; i++) {
 
-                selectTags.append("<span style='font-size: 12px'>"+data[i]+",</span>")
+                    selectTags.append("<span style='font-size: 12px; display: inline-block'> " +
+                        "<input type='checkbox' onclick='checkBoxClick(id,"+i+")' id='checkbox" + i + "'/>" +
+                        "<span class='' id='tagP"+i+"' contenteditable='true' style='display:inline-block'>" + data[i] + "</span></span>")
                 }
                 if (aCategory !== "" && aCategory.length > 0) {
                     selectTags.val(aCategory);
@@ -104,6 +105,15 @@ publishBtn.click(function () {
     }, 3000);
 });
 
+function checkBoxClick(id,i) {
+    var tagid = "#" + id
+    var tagp="#tagP"+i
+    if ($(tagid).is(':checked')) {
+        $(tagp).attr("class","tag-name")
+    }else {
+        $(tagp).attr("class","")
+    }
+}
 function publishSuccessPutIn(data) {
     $('#removeDiv').html('');
     var sec = $('<div id="all"></div>');
@@ -231,6 +241,9 @@ surePublishBtn.click(function () {
     var articleTagsValue = [];
     for (var j = 0; j < tagNum; j++) {
         articleTagsValue[j] = $('.tag-name').eq(j).html();
+    }
+    if (articleTagsValue.length>5){
+        alert("标签数量不正确")
     }
     var articleTypeValue = articleType.val();
     var articleCategoriesValue = articleCategories.val();
