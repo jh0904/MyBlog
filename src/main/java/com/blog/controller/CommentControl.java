@@ -84,9 +84,7 @@ public class CommentControl {
         TimeUtil timeUtil = new TimeUtil();
         comment.setCommentDate(timeUtil.getFormatDateForFive());
         int userId = userService.findIdByUsername(publisher);
-       // String respondent = TransCodingUtil.unicodeToString(publisher);
         comment.setAnswererId(userId);
-        //comment.setOriginalAuthor(respondent);
         comment.setRespondentId(userService.findIdByUsername(SiteOwner.SITE_OWNER));
         comment.setCommentContent(JavaScriptCheck.javaScriptCheck(comment.getCommentContent()));
 
@@ -122,11 +120,9 @@ public class CommentControl {
         comment.setPId(Long.parseLong(parentId.substring(1)));
         comment.setAnswererId(userService.findIdByUsername(username));
         comment.setRespondentId(userService.findIdByUsername(respondent));
-        //comment.setOriginalAuthor(TransCodingUtil.unicodeToString(comment.getOriginalAuthor()));
         TimeUtil timeUtil = new TimeUtil();
         comment.setCommentDate(timeUtil.getFormatDateForFive());
         comment.setCommentContent(JavaScriptCheck.javaScriptCheck(comment.getCommentContent()));
-        //comment = commentService.insertComment(comment, respondent);
         comment = commentService.insertComment(comment);
         JSONArray jsonArray = commentService.replyReplyReturn(comment, username, respondent);
         return jsonArray;
