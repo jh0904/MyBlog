@@ -16,7 +16,7 @@ import org.springframework.security.web.authentication.rememberme.PersistentToke
 import javax.sql.DataSource;
 
 /**
- * @author: zhangocean
+ * @author: i_jianghao
  * @Date: 2018/6/5 18:45
  * Describe: SpringSecurity配置
  */

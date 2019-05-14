@@ -3,7 +3,7 @@ package com.blog.model;
 import lombok.Data;
 
 /**
- * @author: zhangocean
+ * @author: i_jianghao
  * @Date: 2018/7/12 13:43
  * Describe: 文章评论点赞记录
  */

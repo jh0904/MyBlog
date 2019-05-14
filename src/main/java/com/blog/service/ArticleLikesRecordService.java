@@ -3,7 +3,7 @@ package com.blog.service;
 import com.blog.model.ArticleLikesRecord;
 
 /**
- * @author: zhangocean
+ * @author: i_jianghao
  * @Date: 2018/7/7 15:48
  * Describe: 文章点赞记录业务操作
  */

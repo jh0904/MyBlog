@@ -3,7 +3,7 @@ package com.blog.model;
 import lombok.Data;
 
 /**
- * @author: zhangocean
+ * @author: i_jianghao
  * @Date: 2018/7/22 20:15
  * Describe: 悄悄话
  */

@@ -1,7 +1,7 @@
 package com.blog.utils;
 
 /**
- * @author: zhangocean
+ * @author: i_jianghao
  * @Date: 2018/6/24 9:51
  * Describe: markdown截取文章生成摘要
  */

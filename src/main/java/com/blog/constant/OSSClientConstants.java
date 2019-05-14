@@ -1,7 +1,7 @@
 package com.blog.constant;
 
 /**
- * @author: zhangocean
+ * @author: i_jianghao
  * @Date: 2018/6/9 19:45
  * Describe: 阿里云连接密钥
  */

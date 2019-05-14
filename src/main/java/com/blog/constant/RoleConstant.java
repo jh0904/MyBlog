@@ -2,7 +2,7 @@ package com.blog.constant;
 
 
 /**
- * @author: zhangocean
+ * @author: i_jianghao
  * @Date: Created in 14:18 2018/2/3
  * Describe: 权限
  */

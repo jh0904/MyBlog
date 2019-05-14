@@ -1,7 +1,7 @@
 package com.blog.exception;
 
 /**
- * @author: zhangocean
+ * @author: i_jianghao
  * @Date: 2018/8/8 15:50
  * Describe:
  */
