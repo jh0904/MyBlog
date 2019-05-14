@@ -5,7 +5,6 @@ import com.blog.service.ArticleLikesRecordService;
 import com.blog.service.ArticleService;
 import com.blog.service.UserService;
 import com.blog.utils.TimeUtil;
-import com.blog.utils.TransCodingUtil;
 import net.sf.json.JSONObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -39,12 +38,10 @@ public class ShowArticleControl {
     /**
      *  获取文章
      * @param articleId 文章id
-     * @param originalAuthor 原作者
      * @return
      */
     @PostMapping("/getArticleByArticleIdAndOriginalAuthor")
     public @ResponseBody JSONObject getArticleByIdAndOriginalAuthor(@RequestParam("articleId") String articleId,
-                                                                    @RequestParam("originalAuthor") String originalAuthor,
                                                                     @AuthenticationPrincipal Principal principal){
         String username = null;
         try {
@@ -52,7 +49,7 @@ public class ShowArticleControl {
         } catch (NullPointerException e){
             logger.info("This user is not login");
         }
-        return articleService.getArticleByArticleIdAndOriginalAuthor(Long.parseLong(articleId), TransCodingUtil.unicodeToString(originalAuthor),username);
+        return articleService.getArticleByArticleIdAndOriginalAuthor(Long.parseLong(articleId),username);
     }
 
 
@@ -76,13 +73,13 @@ public class ShowArticleControl {
             return -1;
         }
 
-        String stringOriginalAuthor = TransCodingUtil.unicodeToString(originalAuthor);
-        if(articleLikesRecordService.isLiked(Long.parseLong(articleId), stringOriginalAuthor, username)){
+        //String stringOriginalAuthor = TransCodingUtil.unicodeToString(originalAuthor);
+        if(articleLikesRecordService.isLiked(Long.parseLong(articleId), username)){
             logger.info("你已经点过赞了");
             return -2;
         }
-        int likes = articleService.updateLikeByArticleIdAndOriginalAuthor(Long.parseLong(articleId), stringOriginalAuthor);
-        ArticleLikesRecord articleLikesRecord = new ArticleLikesRecord(Long.parseLong(articleId), stringOriginalAuthor, userService.findIdByUsername(username), new TimeUtil().getFormatDateForFive());
+        int likes = articleService.updateLikeByArticleIdAndOriginalAuthor(Long.parseLong(articleId));
+        ArticleLikesRecord articleLikesRecord = new ArticleLikesRecord(Long.parseLong(articleId), "", userService.findIdByUsername(username), new TimeUtil().getFormatDateForFive());
         articleLikesRecordService.insertArticleLikesRecord(articleLikesRecord);
         logger.info("点赞成功");
         return likes;

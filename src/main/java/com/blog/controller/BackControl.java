@@ -85,7 +85,7 @@ public class BackControl {
 
     @GetMapping("/findArticle")
     public String show(@RequestParam("articleId") String articleId,
-                       @RequestParam("originalAuthor") String originalAuthor,
+                       //@RequestParam("originalAuthor") String originalAuthor,
                        HttpServletResponse response,
                        Model model,
                        HttpServletRequest request) {
@@ -93,7 +93,7 @@ public class BackControl {
         response.setContentType("text/html;charset=utf-8");
         request.getSession().removeAttribute("lastUrl");
 
-        Map<String, String> articleMap = articleService.findArticleTitleByArticleIdAndOriginalAuthor(Long.parseLong(articleId), originalAuthor);
+        Map<String, String> articleMap = articleService.findArticleTitleByArticleIdAndOriginalAuthor(Long.parseLong(articleId));
         model.addAttribute("articleTitle", articleMap.get("articleTitle"));
         String articleTabloid = articleMap.get("articleTabloid");
         if (articleTabloid.length() <= 110) {
@@ -104,7 +104,6 @@ public class BackControl {
 
         //将文章id和原作者存入响应头
         response.setHeader("articleId", articleId);
-        response.setHeader("originalAuthor", TransCodingUtil.stringToUnicode(originalAuthor));
         return "show";
     }
 

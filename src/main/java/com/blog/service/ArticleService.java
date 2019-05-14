@@ -12,7 +12,6 @@ import java.util.Map;
  * @Date: 2018/6/20 21:41
  * Describe: 文章业务操作
  */
-//@Service
 public interface ArticleService {
 
     /**
@@ -33,18 +32,16 @@ public interface ArticleService {
     /**
      * 获得文章
      * @param articleId 文章id
-     * @param originalAuthor 原作者
      * @return
      */
-    JSONObject getArticleByArticleIdAndOriginalAuthor(long articleId, String originalAuthor, String username);
+    JSONObject getArticleByArticleIdAndOriginalAuthor(long articleId, String username);
 
     /**
      * 通过文章id和原作者获得文章名
      * @param articleId 文章id
-     * @param originalAuthor 文章原作者
      * @return 文章名
      */
-    Map<String, String> findArticleTitleByArticleIdAndOriginalAuthor(long articleId, String originalAuthor);
+    Map<String, String> findArticleTitleByArticleIdAndOriginalAuthor(long articleId);
 
     /**
      * 分页获得所有文章
@@ -72,10 +69,9 @@ public interface ArticleService {
     /**
      * 文章点赞
      * @param articleId 文章id
-     * @param originalAuthor 文章原作者
      * @return 目前点赞数
      */
-    int updateLikeByArticleIdAndOriginalAuthor(long articleId, String originalAuthor);
+    int updateLikeByArticleIdAndOriginalAuthor(long articleId);
 
     /**
      * 通过标签分页获得文章部分信息

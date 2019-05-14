@@ -25,11 +25,11 @@ public interface ArticleMapper {
     @Select("select articleId,originalAuthor from article where id=#{id}")
     Article getArticleUrlById(int id);
 
-    @Select("select * from article where articleId=#{articleId} and originalAuthor=#{originalAuthor}")
-    Article getArticleByArticleIdAndOriginalAuthor(@Param("articleId") long articleId, @Param("originalAuthor") String originalAuthor);
+    @Select("select * from article where articleId=#{articleId} ")
+    Article getArticleByArticleIdAndOriginalAuthor(@Param("articleId") long articleId);
 
-    @Select("select articleTitle,articleTabloid from article where articleId=#{articleId} and originalAuthor=#{originalAuthor}")
-    Article findArticleTitleByArticleIdAndOriginalAuthor(@Param("articleId") long articleId, @Param("originalAuthor") String originalAuthor);
+    @Select("select articleTitle,articleTabloid from article where articleId=#{articleId} ")
+    Article findArticleTitleByArticleIdAndOriginalAuthor(@Param("articleId") long articleId);
 
     @Select("select articleId,originalAuthor,articleTitle from article where articleId=#{articleId}")
     Article findArticleByArticleId(@Param("articleId") long articleId);
@@ -49,11 +49,11 @@ public interface ArticleMapper {
     @Select("update article set nextArticleId=#{nextArticleId} where articleId=#{articleId}")
     void updateArticleNextId(@Param("nextArticleId") long nextArticleId, @Param("articleId") long articleId);
 
-    @Update("update article set likes=likes+1 where articleId=#{articleId} and originalAuthor=#{originalAuthor}")
-    void updateLikeByArticleIdAndOriginalAuthor(@Param("articleId") long articleId, @Param("originalAuthor") String originalAuthor);
+    @Update("update article set likes=likes+1 where articleId=#{articleId}")
+    void updateLikeByArticleIdAndOriginalAuthor(@Param("articleId") long articleId);
 
-    @Select("select IFNULL(max(likes),0) from article where articleId=#{articleId} and originalAuthor=#{originalAuthor}")
-    int findLikesByArticleIdAndOriginalAuthor(@Param("articleId") long articleId, @Param("originalAuthor") String originalAuthor);
+    @Select("select IFNULL(max(likes),0) from article where articleId=#{articleId} ")
+    int findLikesByArticleIdAndOriginalAuthor(@Param("articleId") long articleId);
 
     @Select("select articleId,originalAuthor,articleTitle,articleTags,articleType,articleCategories,publishDate from article where articleTags like '%${tag}%' order by id desc")
     List<Article> findArticleByTag(@Param("tag") String tag);

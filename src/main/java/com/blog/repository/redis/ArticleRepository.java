@@ -8,7 +8,7 @@ import org.springframework.stereotype.Repository;
 import javax.annotation.Resource;
 
 /**
- * @author: zhangocean
+ * @author: i_jianghao
  * @Date: 2018/7/13 11:07
  * Describe:
  */

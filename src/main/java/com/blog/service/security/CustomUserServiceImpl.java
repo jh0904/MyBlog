@@ -4,6 +4,7 @@ import com.blog.mapper.UserMapper;
 import com.blog.model.Role;
 import com.blog.model.User;
 import com.blog.service.UserService;
+import com.blog.utils.AccountValidatorUtil;
 import com.blog.utils.TimeUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -30,7 +31,9 @@ public class CustomUserServiceImpl implements UserDetailsService{
 
     @Override
     public UserDetails loadUserByUsername(String phone) throws UsernameNotFoundException {
-
+        if(!AccountValidatorUtil.isMobile (phone)){
+            phone  = userMapper.findPhoneByUsername (phone);
+        }
         User user = userMapper.getUsernameAndRolesByPhone(phone);
 
         if(user == null){

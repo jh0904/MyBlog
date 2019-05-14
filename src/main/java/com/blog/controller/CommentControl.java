@@ -43,13 +43,11 @@ public class CommentControl {
     /**
      * 获得该文章所有评论
      * @param articleId 文章id
-     * @param originalAuthor 原作者
      * @return
      */
     @PostMapping("/getAllComment")
     @ResponseBody
     public JSONArray getAllComment(@RequestParam("articleId") String articleId,
-                                   @RequestParam("originalAuthor") String originalAuthor,
                                    @AuthenticationPrincipal Principal principal){
 
         String username = null;
@@ -58,7 +56,7 @@ public class CommentControl {
         } catch (NullPointerException e){
             logger.info("This user is not login");
         }
-        JSONArray jsonArray = commentService.findCommentByArticleIdAndOriginalAuthor(Long.parseLong(articleId), TransCodingUtil.unicodeToString(originalAuthor),username);
+        JSONArray jsonArray = commentService.findCommentByArticleIdAndOriginalAuthor(Long.parseLong(articleId),username);
         return jsonArray;
 
     }
@@ -86,15 +84,15 @@ public class CommentControl {
         TimeUtil timeUtil = new TimeUtil();
         comment.setCommentDate(timeUtil.getFormatDateForFive());
         int userId = userService.findIdByUsername(publisher);
-        String respondent = TransCodingUtil.unicodeToString(comment.getOriginalAuthor());
+       // String respondent = TransCodingUtil.unicodeToString(publisher);
         comment.setAnswererId(userId);
-        comment.setOriginalAuthor(respondent);
+        //comment.setOriginalAuthor(respondent);
         comment.setRespondentId(userService.findIdByUsername(SiteOwner.SITE_OWNER));
         comment.setCommentContent(JavaScriptCheck.javaScriptCheck(comment.getCommentContent()));
 
-        commentService.insertComment(comment, respondent);
-
-        JSONArray jsonArray = commentService.findCommentByArticleIdAndOriginalAuthor(comment.getArticleId(), comment.getOriginalAuthor(),publisher);
+        //commentService.insertComment(comment, respondent);
+        commentService.insertComment(comment);
+        JSONArray jsonArray = commentService.findCommentByArticleIdAndOriginalAuthor(comment.getArticleId(),publisher);
         return jsonArray;
     }
 
@@ -124,12 +122,12 @@ public class CommentControl {
         comment.setPId(Long.parseLong(parentId.substring(1)));
         comment.setAnswererId(userService.findIdByUsername(username));
         comment.setRespondentId(userService.findIdByUsername(respondent));
-        comment.setOriginalAuthor(TransCodingUtil.unicodeToString(comment.getOriginalAuthor()));
+        //comment.setOriginalAuthor(TransCodingUtil.unicodeToString(comment.getOriginalAuthor()));
         TimeUtil timeUtil = new TimeUtil();
         comment.setCommentDate(timeUtil.getFormatDateForFive());
         comment.setCommentContent(JavaScriptCheck.javaScriptCheck(comment.getCommentContent()));
-        comment = commentService.insertComment(comment, respondent);
-
+        //comment = commentService.insertComment(comment, respondent);
+        comment = commentService.insertComment(comment);
         JSONArray jsonArray = commentService.replyReplyReturn(comment, username, respondent);
         return jsonArray;
     }
@@ -178,11 +176,11 @@ public class CommentControl {
         TimeUtil timeUtil = new TimeUtil();
         CommentLikesRecord commentLikesRecord = new CommentLikesRecord(Long.parseLong(articleId),TransCodingUtil.unicodeToString(originalAuthor),
                 Integer.parseInt(respondentId.substring(1)),userService.findIdByUsername(username),timeUtil.getFormatDateForFive());
-        if(commentLikesRecordService.isLiked(commentLikesRecord.getArticleId(), commentLikesRecord.getOriginalAuthor(), commentLikesRecord.getPId(), username)){
+        if(commentLikesRecordService.isLiked(commentLikesRecord.getArticleId(), commentLikesRecord.getPId(), username)){
             logger.info("This user had clicked good for this article");
             return -2;
         }
-        int likes = commentService.updateLikeByArticleIdAndOriginalAuthorAndId(commentLikesRecord.getArticleId(),commentLikesRecord.getOriginalAuthor(),commentLikesRecord.getPId());
+        int likes = commentService.updateLikeByArticleIdAndOriginalAuthorAndId(commentLikesRecord.getArticleId(),commentLikesRecord.getPId());
         commentLikesRecordService.insertCommentLikesRecord(commentLikesRecord);
         return likes;
     }
