@@ -13,7 +13,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpServletRequest;
-import java.io.UnsupportedEncodingException;
 import java.security.Principal;
 
 /**
@@ -49,7 +48,7 @@ public class IndexControl {
     @GetMapping("/getVisitorNumByPageName")
     public @ResponseBody
     JSONObject getVisitorNumByPageName(HttpServletRequest request,
-                                       @RequestParam("pageName") String pageName) throws UnsupportedEncodingException {
+                                       @RequestParam("pageName") String pageName) {
 
         int index = pageName.indexOf("?");
         if (index == -1) {
@@ -76,6 +75,15 @@ public class IndexControl {
                          @RequestParam("pageNum") String pageNum) {
 
         return articleService.findAllArticles(rows, pageNum);
+
+    }
+    /**
+     * 获取热门文章
+     */
+    @PostMapping("/hotArticles")
+    public @ResponseBody
+    JSONArray hotArticles() {
+        return articleService.findArticlesByHot ();
 
     }
 

@@ -31,9 +31,15 @@ public class CustomUserServiceImpl implements UserDetailsService{
 
     @Override
     public UserDetails loadUserByUsername(String phone) throws UsernameNotFoundException {
+        System.out.println ("phone1 = " + phone);
+        System.out.println ("!AccountValidatorUtil.isMobile (phone) = " + !AccountValidatorUtil.isMobile (phone));
+        System.out.println ("phone11 = " + phone);
         if(!AccountValidatorUtil.isMobile (phone)){
+            System.out.println ("phone2 = " + phone);
             phone  = userMapper.findPhoneByUsername (phone);
+            System.out.println ("phone3 = " + phone);
         }
+        System.out.println ("phone4 = " + phone);
         User user = userMapper.getUsernameAndRolesByPhone(phone);
 
         if(user == null){

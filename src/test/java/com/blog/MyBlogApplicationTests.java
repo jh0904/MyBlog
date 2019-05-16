@@ -1,7 +1,7 @@
 package com.blog;
 
 import com.blog.service.ArticleService;
-import net.sf.json.JSONArray;
+import net.sf.json.JSONObject;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,10 +14,11 @@ public class MyBlogApplicationTests {
 
 	@Autowired
 	ArticleService service;
+
 	@Test
 	public void contextLoads() {
-		JSONArray s = service.searchArticles("%s%");
-		System.out.println(s);
+		JSONObject articleManagement = service.getArticleManagement (10, 0);
+		System.out.println (articleManagement);
 	}
 
 }

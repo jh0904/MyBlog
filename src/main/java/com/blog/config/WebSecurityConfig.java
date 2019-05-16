@@ -5,6 +5,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
+import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
@@ -22,12 +23,10 @@ import javax.sql.DataSource;
  */
 @Configuration
 @EnableWebSecurity
+@EnableGlobalMethodSecurity(prePostEnabled = true)
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
-	//@Bean
-	//UserDetailsService customUserService() {
-	//	return new CustomUserServiceImpl ();
-	//}
+
 
 	@Autowired
 	private DataSource dataSource;
@@ -49,6 +48,9 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
 					@Override
 					public boolean matches(CharSequence rawPassword, String encodedPassword) {
+						System.out.println ("rawPassword = " + rawPassword);
+						System.out.println ("encodedPassword = " + encodedPassword);
+						System.out.println ("md5Util.encode ((String) rawPassword) = " + md5Util.encode ((String) rawPassword));
 						return encodedPassword.equals (md5Util.encode ((String) rawPassword));
 					}
 				});
@@ -64,7 +66,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 				.antMatchers ("/ali").hasAnyRole ("ADMIN")
 				.antMatchers ("/superadmin").hasAnyRole ("SUPERADMIN")
 				.and ()
-				.formLogin ().usernameParameter ("username").passwordParameter ("password").loginPage ("/login").failureUrl ("/login?error").defaultSuccessUrl ("/")
+				.formLogin ().loginPage ("/login").failureUrl ("/login?error").defaultSuccessUrl ("/")
 				.and ()
 				.logout ().logoutUrl ("/logout").logoutSuccessUrl ("/").invalidateHttpSession (true)
 				.and ()

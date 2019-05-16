@@ -54,10 +54,10 @@ public interface UserMapper {
     @Update("update user set password=#{password} where phone=#{phone}")
     void updatePassword(@Param("phone") String phone,@Param("password") String password);
 
-    @Select("select phone from user where username=#{username}")
+    @Select("select phone from user where username= #{username}")
     String findPhoneByUsername(@Param("username") String username);
 
-    @Select("select id from user where username=#{username}")
+    @Select("select id from user where username= #{username}")
     int findIdByUsername(String username);
 
     @Update("update user set recentlyLanded=#{recentlyLanded} where phone=#{phone}")

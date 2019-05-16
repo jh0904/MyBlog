@@ -52,6 +52,13 @@ public interface ArticleService {
     JSONArray findAllArticles(String rows, String pageNo);
 
     /**
+     * 获取最热文章10个
+     * @return 该页所有文章
+     */
+    JSONArray findArticlesByHot();
+
+
+    /**
      * 分页获得搜索文章
      * @return 该页所有文章
      */

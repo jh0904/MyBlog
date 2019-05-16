@@ -13,7 +13,7 @@ public class MD5Util {
 
     public String encode(String password) {
         password = password + SALT;
-        MessageDigest md5 = null;
+        MessageDigest md5;
         try {
             md5 = MessageDigest.getInstance("MD5");
         } catch (Exception e) {
@@ -38,4 +38,8 @@ public class MD5Util {
         return hexValue.toString();
     }
 
+    public static void main(String[] args) {
+        System.out.println (new MD5Util ().encode ("111111"));
+        System.out.println (new MD5Util ().encode ("123456"));
+    }
 }

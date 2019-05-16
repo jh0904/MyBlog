@@ -202,6 +202,29 @@ public class ArticleServiceImpl implements ArticleService {
         jsonArray.add(thisPageInfo);
         return jsonArray;
     }
+
+    @Override
+    public JSONArray findArticlesByHot() {
+        List<Article> articles = articleMapper.findAllArticles();
+        List<Map<String, Object>> newArticles = new ArrayList<>();
+        Map<String, Object> map;
+
+        for(Article article : articles){
+            map = new HashMap<>();
+            map.put("thisArticleUrl", "/findArticle?articleId=" + article.getArticleId());
+            map.put("articleTags",StringAndArray.stringToArray(article.getArticleTags()));
+            map.put("articleTitle", article.getArticleTitle());
+            map.put("articleType", article.getArticleType());
+            map.put("publishDate", article.getPublishDate());
+            map.put("originalAuthor", userMapper.findUsernameById (article.getUser_id ()));
+            map.put("articleCategories", article.getArticleCategories());
+            map.put("articleTabloid", article.getArticleTabloid());
+            map.put("likes", article.getLikes());
+            newArticles.add(map);
+        }
+        return JSONArray.fromObject(newArticles);
+    }
+
     @Override
     public JSONArray searchArticles(String key) {
 

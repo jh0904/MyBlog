@@ -95,6 +95,5 @@ setInterval(function () {
     for(var item of aRain){
         item.move();
     }
-
 },1000/60);
 
