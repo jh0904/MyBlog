@@ -1,5 +1,6 @@
 package com.blog.service.impl;
 
+import com.blog.mapper.UserMapper;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.blog.component.StringAndArray;
@@ -32,6 +33,8 @@ public class ArticleServiceImpl implements ArticleService {
     @Autowired
     private ArticleMapper articleMapper;
     @Autowired
+    private UserMapper userMapper;
+    @Autowired
     private ArticleService articleService;
     @Autowired
     private ArticleLikesRecordService articleLikesRecordService;
@@ -49,9 +52,6 @@ public class ArticleServiceImpl implements ArticleService {
         JSONObject articleReturn = new JSONObject();
 
         try {
-            if("".equals(article.getOriginalAuthor())){
-                article.setOriginalAuthor(article.getAuthor());
-            }
             if("".equals(article.getArticleUrl())){
                 String url = "http://www.itclub.fun/findArticle?articleId=" + article.getArticleId();
                 article.setArticleUrl(url);
@@ -76,13 +76,13 @@ public class ArticleServiceImpl implements ArticleService {
             articleReturn.put("status",200);
             articleReturn.put("articleTitle",article.getArticleTitle());
             articleReturn.put("updateDate",article.getUpdateDate());
-            articleReturn.put("author",article.getOriginalAuthor());
+            articleReturn.put("author",userMapper.findUsernameById (article.getUser_id ()));
             //本博客中的URL
             articleReturn.put("articleUrl","/findArticle?articleId=" + article.getArticleId() );
             return articleReturn;
         } catch (Exception e){
             articleReturn.put("status",500);
-            logger.error("用户 " + article.getAuthor() + " 保存文章 " + article.getArticleTitle() + " 失败");
+            logger.error("用户 " + article.getUser_id () + " 保存文章 " + article.getArticleTitle() + " 失败");
             e.printStackTrace();
             return articleReturn;
         }
@@ -91,17 +91,13 @@ public class ArticleServiceImpl implements ArticleService {
     @Override
     public JSONObject updateArticleById(Article article) {
         Article a = articleMapper.getArticleUrlById(article.getId());
-        if("原创".equals(article.getArticleType())){
-            article.setOriginalAuthor(article.getAuthor());
-            String url = "http://www.itclub.fun/findArticle?articleId=" + a.getArticleId() ;
-            article.setArticleUrl(url);
-        }
+
         articleMapper.updateArticleById(article);
         JSONObject articleReturn = new JSONObject();
         articleReturn.put("status",200);
         articleReturn.put("articleTitle",article.getArticleTitle());
         articleReturn.put("updateDate",article.getUpdateDate());
-        articleReturn.put("author",article.getOriginalAuthor());
+        articleReturn.put("author",userMapper.findUsernameById (article.getUser_id ()));
         //本博客中的URL
         articleReturn.put("articleUrl","/findArticle?articleId=" + a.getArticleId());
         return articleReturn;
@@ -116,9 +112,8 @@ public class ArticleServiceImpl implements ArticleService {
             Article lastArticle = articleMapper.findArticleByArticleId(article.getLastArticleId());
             Article nextArticle = articleMapper.findArticleByArticleId(article.getNextArticleId());
             jsonObject.put("status","200");
-            jsonObject.put("author",article.getAuthor());
             jsonObject.put("articleId",articleId);
-            jsonObject.put("originalAuthor",article.getAuthor ());
+            jsonObject.put("originalAuthor",userMapper.findUsernameById (article.getUser_id ()));
             jsonObject.put("articleTitle",article.getArticleTitle());
             jsonObject.put("publishDate",article.getPublishDate());
             jsonObject.put("updateDate",article.getUpdateDate());
@@ -189,7 +184,7 @@ public class ArticleServiceImpl implements ArticleService {
             map.put("articleTitle", article.getArticleTitle());
             map.put("articleType", article.getArticleType());
             map.put("publishDate", article.getPublishDate());
-            map.put("originalAuthor", article.getAuthor ());
+            map.put("originalAuthor", userMapper.findUsernameById (article.getUser_id ()));
             map.put("articleCategories", article.getArticleCategories());
             map.put("articleTabloid", article.getArticleTabloid());
             map.put("likes", article.getLikes());
@@ -221,7 +216,7 @@ public class ArticleServiceImpl implements ArticleService {
             map.put("articleTitle", article.getArticleTitle());
             map.put("articleType", article.getArticleType());
             map.put("publishDate", article.getPublishDate());
-            map.put("originalAuthor", article.getOriginalAuthor());
+            map.put("originalAuthor", userMapper.findUsernameById (article.getUser_id ()));
             map.put("articleCategories", article.getArticleCategories());
             map.put("articleTabloid", article.getArticleTabloid());
             map.put("likes", article.getLikes());
@@ -265,7 +260,7 @@ public class ArticleServiceImpl implements ArticleService {
                 if(str.equals(tag)){
                     articleJson = new JSONObject();
                     articleJson.put("articleId", article.getArticleId());
-                    articleJson.put("originalAuthor", article.getAuthor ());
+                    articleJson.put("originalAuthor", userMapper.findUsernameById (article.getUser_id ()));
                     articleJson.put("articleTitle", article.getArticleTitle());
                     articleJson.put("articleCategories", article.getArticleCategories());
                     articleJson.put("publishDate", article.getPublishDate());
@@ -372,7 +367,7 @@ public class ArticleServiceImpl implements ArticleService {
         returnJson.put("articleType", article.getArticleType());
         returnJson.put("articleCategories", article.getArticleCategories());
         returnJson.put("articleUrl", article.getArticleUrl());
-        returnJson.put("originalAuthor", article.getOriginalAuthor());
+        returnJson.put("originalAuthor", userMapper.findUsernameById (article.getUser_id ()));
         returnJson.put("articleContent", article.getArticleContent());
         returnJson.put("articleTags", articleTags);
         returnJson.put("articleGrade", articleGrade);
@@ -391,7 +386,7 @@ public class ArticleServiceImpl implements ArticleService {
             articleJson = new JSONObject();
             articleJson.put("id",article.getId());
             articleJson.put("articleId",article.getArticleId());
-            articleJson.put("originalAuthor",article.getAuthor ());
+            articleJson.put("originalAuthor",userMapper.findUsernameById (article.getUser_id ()));
             articleJson.put("articleTitle",article.getArticleTitle());
             articleJson.put("articleCategories",article.getArticleCategories());
             articleJson.put("publishDate",article.getPublishDate());
@@ -464,7 +459,7 @@ public class ArticleServiceImpl implements ArticleService {
             String[] tagsArray = StringAndArray.stringToArray(article.getArticleTags());
             articleJson = new JSONObject();
             articleJson.put("articleId", article.getArticleId());
-            articleJson.put("originalAuthor", article.getAuthor ());
+            articleJson.put("originalAuthor", userMapper.findUsernameById (article.getUser_id ()));
             articleJson.put("articleTitle", article.getArticleTitle());
             articleJson.put("articleCategories", article.getArticleCategories());
             articleJson.put("publishDate", article.getPublishDate());

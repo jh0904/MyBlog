@@ -85,7 +85,6 @@ public class BackControl {
 
     @GetMapping("/findArticle")
     public String show(@RequestParam("articleId") String articleId,
-                       //@RequestParam("originalAuthor") String originalAuthor,
                        HttpServletResponse response,
                        Model model,
                        HttpServletRequest request) {
@@ -118,6 +117,7 @@ public class BackControl {
         try {
             response.setHeader("archive", TransCodingUtil.stringToUnicode(archive));
         } catch (Exception e) {
+            e.printStackTrace ();
         }
         return "archives";
     }

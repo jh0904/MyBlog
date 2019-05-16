@@ -64,9 +64,11 @@ public class EditorControl {
                                      HttpServletRequest request) {
 
         String username = null;
+        int u_id=0;
         JSONObject returnJson = new JSONObject();
         try {
             username = principal.getName();
+            u_id=userService.findIdByUsername (username);
         } catch (NullPointerException e) {
             //登录超时情况
             logger.error("This user is not login，publish article 《" + article.getArticleTitle() + "》 fail");
@@ -106,7 +108,7 @@ public class EditorControl {
             article.setArticleTags(StringAndArray.arrayToString(tags));
             article.setUpdateDate(updateDate);
             article.setId(Integer.parseInt(id));
-            article.setAuthor(username);
+            article.setUser_id (u_id);
             return articleService.updateArticleById(article);
         }
 
@@ -114,7 +116,7 @@ public class EditorControl {
         long articleId = timeUtil.getLongTime();
 
         article.setArticleId(articleId);
-        article.setAuthor(username);
+        article.setUser_id (u_id);
         article.setArticleTags(StringAndArray.arrayToString(tags));
         article.setPublishDate(nowDate);
         article.setUpdateDate(nowDate);

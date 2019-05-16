@@ -15,11 +15,11 @@ import java.util.List;
 @Repository
 public interface ArticleMapper {
 
-    @Insert("insert into article(articleId,author,originalAuthor,articleTitle,publishDate,updateDate,articleContent,articleTags,articleType,articleCategories,articleUrl,articleTabloid,likes,lastArticleId,nextArticleId) " +
-            "values(#{articleId},#{author},#{originalAuthor},#{articleTitle},#{publishDate},#{updateDate},#{articleContent},#{articleTags},#{articleType},#{articleCategories},#{articleUrl},#{articleTabloid},#{likes},#{lastArticleId},#{nextArticleId})")
+    @Insert("insert into article(articleId,user_id,articleTitle,publishDate,updateDate,articleContent,articleTags,articleType,articleCategories,articleUrl,articleTabloid,likes,lastArticleId,nextArticleId) " +
+            "values(#{articleId},#{user_id},#{articleTitle},#{publishDate},#{updateDate},#{articleContent},#{articleTags},#{articleType},#{articleCategories},#{articleUrl},#{articleTabloid},#{likes},#{lastArticleId},#{nextArticleId})")
     void insertArticle(Article article);
 
-    @Update("update article set originalAuthor=#{originalAuthor},articleTitle=#{articleTitle},updateDate=#{updateDate},articleContent=#{articleContent},articleTags=#{articleTags},articleType=#{articleType},articleCategories=#{articleCategories},articleUrl=#{articleUrl},articleTabloid=#{articleTabloid} where id=#{id}")
+    @Update("update article set articleTitle=#{articleTitle},updateDate=#{updateDate},articleContent=#{articleContent},articleTags=#{articleTags},articleType=#{articleType},articleCategories=#{articleCategories},articleUrl=#{articleUrl},articleTabloid=#{articleTabloid} where id=#{id}")
     void updateArticleById(Article article);
 
     @Select("select articleId from article where id=#{id}")
@@ -34,10 +34,10 @@ public interface ArticleMapper {
     @Select("select articleId,articleTitle from article where articleId=#{articleId}")
     Article findArticleByArticleId(@Param("articleId") long articleId);
 
-    @Select("select articleId,author,articleTags,articleTitle,articleType,publishDate,articleCategories,articleTabloid,likes from article order by id desc")
+    @Select("select articleId,user_id,articleTags,articleTitle,articleType,publishDate,articleCategories,articleTabloid,likes from article order by id desc")
     List<Article> findAllArticles();
 
-    @Select("select articleId,author,articleTags,articleTitle,articleType,publishDate,articleCategories,articleTabloid,likes from article where articleTitle like '%${key}%' order by id desc")
+    @Select("select articleId,user_id,articleTags,articleTitle,articleType,publishDate,articleCategories,articleTabloid,likes from article where articleTitle like '%${key}%' order by id desc")
     List<Article> findSearchArticles(@Param("key")String key);
 
     @Select("select articleId from article order by id desc limit 1")
@@ -55,22 +55,22 @@ public interface ArticleMapper {
     @Select("select IFNULL(max(likes),0) from article where articleId=#{articleId} ")
     int findLikesByArticleIdAndOriginalAuthor(@Param("articleId") long articleId);
 
-    @Select("select articleId,author,articleTitle,articleTags,articleType,articleCategories,publishDate from article where articleTags like '%${tag}%' order by id desc")
+    @Select("select articleId,user_id,articleTitle,articleTags,articleType,articleCategories,publishDate from article where articleTags like '%${tag}%' order by id desc")
     List<Article> findArticleByTag(@Param("tag") String tag);
 
-    @Select("select articleId,author,articleTitle,articleTags,articleType,articleCategories,publishDate from article where articleCategories=#{category} order by id desc")
+    @Select("select articleId,user_id,articleTitle,articleTags,articleType,articleCategories,publishDate from article where articleCategories=#{category} order by id desc")
     List<Article> findArticleByCategory(@Param("category") String category);
 
-    @Select("select articleId,author,articleTitle,articleTags,articleType,articleCategories,publishDate from article where publishDate like '%${archive}%' order by id desc")
+    @Select("select articleId,user_id,articleTitle,articleTags,articleType,articleCategories,publishDate from article where publishDate like '%${archive}%' order by id desc")
     List<Article> findArticleByArchive(@Param("archive") String archive);
 
-    @Select("select articleId,author,articleTitle,articleTags,articleType,articleCategories,publishDate from article order by id desc")
+    @Select("select articleId,user_id,articleTitle,articleTags,articleType,articleCategories,publishDate from article order by id desc")
     List<Article> findAllArticlesPartInfo();
 
-    @Select("select id,articleId,author,articleTitle,articleCategories,publishDate from article order by id desc")
+    @Select("select id,articleId,user_id,articleTitle,articleCategories,publishDate from article order by id desc")
     List<Article> getArticleManagement();
 
-    @Select("select id,articleId,author,articleTitle,articleContent,articleCategories,articleTags,articleType,articleUrl from article where id=#{id}")
+    @Select("select id,articleId,user_id,articleTitle,articleContent,articleCategories,articleTags,articleType,articleUrl from article where id=#{id}")
     Article findArticleById(int id);
 
     @Select("select count(*) from article where articleCategories=#{category}")

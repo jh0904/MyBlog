@@ -20,14 +20,9 @@ public class Article {
     private long articleId;
 
     /**
-     * 文章作者
+     * 用户id
      */
-    private String author;
-
-    /**
-     * 文章原作者
-     */
-    private String originalAuthor;
+    private int user_id;
 
     /**
      * 文章名
