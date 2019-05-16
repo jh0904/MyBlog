@@ -118,7 +118,7 @@ public class ArticleServiceImpl implements ArticleService {
             jsonObject.put("status","200");
             jsonObject.put("author",article.getAuthor());
             jsonObject.put("articleId",articleId);
-            jsonObject.put("originalAuthor",article.getOriginalAuthor());
+            jsonObject.put("originalAuthor",article.getAuthor ());
             jsonObject.put("articleTitle",article.getArticleTitle());
             jsonObject.put("publishDate",article.getPublishDate());
             jsonObject.put("updateDate",article.getUpdateDate());
@@ -189,7 +189,7 @@ public class ArticleServiceImpl implements ArticleService {
             map.put("articleTitle", article.getArticleTitle());
             map.put("articleType", article.getArticleType());
             map.put("publishDate", article.getPublishDate());
-            map.put("originalAuthor", article.getOriginalAuthor());
+            map.put("originalAuthor", article.getAuthor ());
             map.put("articleCategories", article.getArticleCategories());
             map.put("articleTabloid", article.getArticleTabloid());
             map.put("likes", article.getLikes());
@@ -265,7 +265,7 @@ public class ArticleServiceImpl implements ArticleService {
                 if(str.equals(tag)){
                     articleJson = new JSONObject();
                     articleJson.put("articleId", article.getArticleId());
-                    articleJson.put("originalAuthor", article.getOriginalAuthor());
+                    articleJson.put("originalAuthor", article.getAuthor ());
                     articleJson.put("articleTitle", article.getArticleTitle());
                     articleJson.put("articleCategories", article.getArticleCategories());
                     articleJson.put("publishDate", article.getPublishDate());
@@ -391,7 +391,7 @@ public class ArticleServiceImpl implements ArticleService {
             articleJson = new JSONObject();
             articleJson.put("id",article.getId());
             articleJson.put("articleId",article.getArticleId());
-            articleJson.put("originalAuthor",article.getOriginalAuthor());
+            articleJson.put("originalAuthor",article.getAuthor ());
             articleJson.put("articleTitle",article.getArticleTitle());
             articleJson.put("articleCategories",article.getArticleCategories());
             articleJson.put("publishDate",article.getPublishDate());
@@ -464,7 +464,7 @@ public class ArticleServiceImpl implements ArticleService {
             String[] tagsArray = StringAndArray.stringToArray(article.getArticleTags());
             articleJson = new JSONObject();
             articleJson.put("articleId", article.getArticleId());
-            articleJson.put("originalAuthor", article.getOriginalAuthor());
+            articleJson.put("originalAuthor", article.getAuthor ());
             articleJson.put("articleTitle", article.getArticleTitle());
             articleJson.put("articleCategories", article.getArticleCategories());
             articleJson.put("publishDate", article.getPublishDate());

@@ -102,7 +102,7 @@ public class BackControl {
             model.addAttribute("articleTabloid", articleTabloid.substring(0, 110));
         }
 
-        //将文章id和原作者存入响应头
+        //将文章id存入响应头
         response.setHeader("articleId", articleId);
         return "show";
     }
