@@ -75,7 +75,6 @@ window.onload = function () {
 function putInArticle(data) {
     $('.articles').empty();
     var articles = $('.articles');
-    var hotul = $('.hot-ul');
     $.each(data, function (index, obj) {
         if ((data.length) - 1 !== index) {
             var center = $('<div class="center">' +
@@ -113,10 +112,20 @@ function putInArticle(data) {
                 var articleTag = $('<i class="am-icon-tag"><a class="tag" href="/tags?tag=' + obj['articleTags'][i] + '"> ' + obj['articleTags'][i] + '</a></i>');
                 articleTags.eq(index).append(articleTag);
             }
-            
 
-            var hot = $('<li class="hot-a">' +
-                '<a class="am-text-truncate"  href="' + obj['thisArticleUrl'] + '" target="_blank">' + '《'+obj['articleTitle'] +'》' +'</a>' +
+        }
+    })
+
+}
+
+//填充热门文章
+function putInHotArticle(data) {
+    $('.hot-ul').empty();
+    var hotul = $('.hot-ul');
+    $.each(data, function (index, obj) {
+        if ((data.length) - 1 !== index) {
+            const hot = $('<li class="hot-a">' +
+                '<a class="am-text-truncate"  href="' + obj['thisArticleUrl'] + '" target="_blank">' +'Top'+(index+1)+' 《' + obj['articleTitle'] + '》' + '</a>' +
                 '</li>'
             );
             hotul.append(hot)
@@ -124,7 +133,6 @@ function putInArticle(data) {
     })
 
 }
-
 //填充最新评论
 function putInNewComment(data) {
     var newComment = $('.new-comment');
@@ -224,6 +232,21 @@ function ajaxFirst(currentPage) {
         },
         error: function () {
             alert("获得文章信息失败！");
+        }
+    });
+    //获取热门文章
+    $.ajax({
+        type: 'GET',
+        url: '/hotArticles',
+        data: {},
+        dataType: 'json',
+        success: function (data) {
+            //放入数据
+            putInHotArticle(data);
+            scrollTo(0, 0);//回到顶部
+        },
+        error: function () {
+            alert("获得热门文章失败！");
         }
     });
 }

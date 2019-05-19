@@ -205,7 +205,7 @@ public class ArticleServiceImpl implements ArticleService {
 
     @Override
     public JSONArray findArticlesByHot() {
-        List<Article> articles = articleMapper.findAllArticles();
+        List<Article> articles = articleMapper.findArticlesByHot ();
         List<Map<String, Object>> newArticles = new ArrayList<>();
         Map<String, Object> map;
 

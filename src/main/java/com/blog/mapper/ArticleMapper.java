@@ -37,7 +37,7 @@ public interface ArticleMapper {
     @Select("select articleId,user_id,articleTags,articleTitle,articleType,publishDate,articleCategories,articleTabloid,likes from article order by id desc")
     List<Article> findAllArticles();
 
-    @Select("select articleId,user_id,articleTags,articleTitle,articleType,publishDate,articleCategories,articleTabloid,likes from article order by id desc")
+    @Select("SELECT a.articleId,a.user_id,a.articleTags,a.articleTitle,a.articleType,a.publishDate,a.articleCategories,a.articleTabloid,a.likes FROM article a,visitor v WHERE a.`articleId`=v.`articleId` ORDER BY v.`visitorNum` DESC LIMIT 0,10")
     List<Article> findArticlesByHot();
 
     @Select("select articleId,user_id,articleTags,articleTitle,articleType,publishDate,articleCategories,articleTabloid,likes from article where articleTitle like '%${key}%' order by id desc")

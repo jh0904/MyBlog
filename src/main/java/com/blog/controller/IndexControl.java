@@ -80,11 +80,10 @@ public class IndexControl {
     /**
      * 获取热门文章
      */
-    @PostMapping("/hotArticles")
+    @GetMapping("/hotArticles")
     public @ResponseBody
     JSONArray hotArticles() {
         return articleService.findArticlesByHot ();
-
     }
 
     /**
