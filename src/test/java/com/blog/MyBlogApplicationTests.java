@@ -17,7 +17,7 @@ public class MyBlogApplicationTests {
 
 	@Test
 	public void contextLoads() {
-		JSONObject articleManagement = service.getArticleManagement (10, 0);
+		JSONObject articleManagement = service.getArticleManagement (10, 0,16);
 		System.out.println (articleManagement);
 	}
 
