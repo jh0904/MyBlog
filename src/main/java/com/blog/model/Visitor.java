@@ -21,4 +21,9 @@ public class Visitor {
      * 当前页的name or 文章名
      */
     private String pageName;
+
+    /**
+     * 文章id
+     */
+    private long articleId;
 }

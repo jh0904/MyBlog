@@ -67,7 +67,7 @@ public class ArticleServiceImpl implements ArticleService {
             String archiveName = timeUtil.timeWhippletreeToYear(article.getPublishDate().substring(0, 7));
             archiveService.addArchiveName(archiveName);
             //新文章加入访客量
-            visitorService.insertVisitorArticlePage("findArticle?articleId=" + article.getArticleId());
+            visitorService.insertVisitorArticlePage(article.getArticleId());
             //设置上一篇文章的下一篇文章id
             if(endArticleId != null){
                 articleService.updateArticleLastOrNextId("nextArticleId", article.getArticleId(), endArticleId.getArticleId());
@@ -462,7 +462,8 @@ public class ArticleServiceImpl implements ArticleService {
             articleMapper.updateLastOrNextId("nextArticleId", deleteArticle.getNextArticleId(), deleteArticle.getLastArticleId());
             //删除本篇文章
             articleMapper.deleteByArticleId(deleteArticle.getArticleId());
-            //删除与该文章有关的所有文章点赞记录、文章评论、文章评论记录
+            //删除与该文章有关的所有文章点赞记录、文章评论、文章评论记录、访客记录
+            visitorService.deleteVisitorByArticleId (deleteArticle.getArticleId ());
             commentService.deleteCommentByArticleId(deleteArticle.getArticleId());
             commentLikesRecordService.deleteCommentLikesRecordByArticleId(deleteArticle.getArticleId());
             articleLikesRecordService.deleteArticleLikesRecordByArticleId(deleteArticle.getArticleId());

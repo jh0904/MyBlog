@@ -60,13 +60,20 @@ public class VisitorServiceImpl implements VisitorService {
     }
 
     @Override
-    public void insertVisitorArticlePage(String pageName) {
-        visitorMapper.insertVisitorArticlePage(pageName);
+    public void insertVisitorArticlePage(long articleId) {
+        String pageName="findArticle?articleId="+articleId;
+        visitorMapper.insertVisitorArticlePage(pageName,articleId);
     }
 
     @Override
     public long getAllVisitor() {
         return visitorMapper.getAllVisitor();
+    }
+
+    @Override
+    public void deleteVisitorByArticleId(long articleId) {
+        visitorMapper.deleteVisitorByArticleId(articleId);
+
     }
 
 }

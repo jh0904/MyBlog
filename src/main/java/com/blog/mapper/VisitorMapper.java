@@ -21,9 +21,12 @@ public interface VisitorMapper {
     @Update("update visitor set visitorNum=visitorNum+1 where pageName='totalVisitor'")
     void updateVisitorNumByTotalVisitor();
 
-    @Insert("insert into visitor(visitorNum,pageName) values(0,#{pageName})")
-    void insertVisitorArticlePage(String pageName);
+    @Insert("insert into visitor(visitorNum,pageName,articleId) values(0,#{pageName},#{articleId})")
+    void insertVisitorArticlePage(@Param("pageName")String pageName,@Param("articleId")long articleId);
 
     @Select("select visitorNum from visitor where pageName='totalVisitor'")
     long getAllVisitor();
+
+    @Delete ("DELETE FROM visitor WHERE articleId=#{articleId}")
+    void deleteVisitorByArticleId(@Param ("articleId") long articleId);
 }

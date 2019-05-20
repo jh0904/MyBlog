@@ -33,9 +33,9 @@ public interface VisitorService {
 
     /**
      * 发布文章后保存该文章的访客量
-     * @param pageName 文章url
+     * @param articleId 文章id
      */
-    void insertVisitorArticlePage(String pageName);
+    void insertVisitorArticlePage(long articleId);
 
     /**
      * 获得总访问量
@@ -43,4 +43,9 @@ public interface VisitorService {
      */
     long getAllVisitor();
 
+    /**
+     * 通过文章id删除该文章的所有评论
+     * @param articleId 文章id'
+     */
+    void deleteVisitorByArticleId(long articleId);
 }
