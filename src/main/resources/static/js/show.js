@@ -210,7 +210,7 @@
                         '</div>');
                     var toolGroup2 = $('<div class="tool-group">' +
                         '<a>' +
-                        '<i class="like am-icon-thumbs-up text-success">&nbsp;&nbsp;<span>' + obj['likes'] + '</span>人赞</i>' +
+                        '<i class="like am-icon-thumbs-up text-success" >&nbsp;&nbsp;<span>' + obj['likes'] + '</span>人赞</i>' +
                         '</a>' +
                         '<a>' +
                         '<i class="reply am-icon-comment-o">&nbsp;&nbsp;回复</i>' +
@@ -431,7 +431,6 @@
                 dataType:'json',
                 data:{
                     articleId : articleId,
-                    originalAuthor : originalAuthor,
                     respondentId : respondentId
                 },
                 success:function (data) {
@@ -440,6 +439,7 @@
                             window.location.replace("/login");
                         });
                     } else if(data == -2){
+
                     } else {
                         $this.find('span').html(data);
                         $.tipsBox({

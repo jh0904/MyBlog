@@ -55,7 +55,7 @@ public class RedisConfig {
         RedisCacheManager cacheManager = new RedisCacheManager(redisTemplate);
 
         //设置缓存过期时间(秒)
-        cacheManager.setDefaultExpiration(3000);
+        cacheManager.setDefaultExpiration(6000);
         return cacheManager;
     }
 

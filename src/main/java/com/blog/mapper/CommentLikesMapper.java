@@ -13,7 +13,7 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface CommentLikesMapper {
 
-    @Insert("insert into comment_likes_record(articleId,originalAuthor,pId,likerId,likeDate) values(#{articleId},#{originalAuthor},#{pId},#{likerId},#{likeDate})")
+    @Insert("insert into comment_likes_record(articleId,pId,likerId,likeDate) values(#{articleId},#{pId},#{likerId},#{likeDate})")
     void insertCommentLikesRecord(CommentLikesRecord commentLikesRecord);
 
     @Select("select likeDate from comment_likes_record where articleId=#{articleId}  and pId=#{pId} and likerId=#{likerId}")

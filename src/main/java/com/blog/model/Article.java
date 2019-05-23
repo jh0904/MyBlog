@@ -12,6 +12,7 @@ public class Article {
 
     private static final long serialVersionUID = 1L;
 
+    //@JestId
     private int id;
 
     /**

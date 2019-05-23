@@ -158,7 +158,7 @@ public class CommentServiceImpl implements CommentService {
                 comment.setCommentContent("@" + userService.findUsernameById(comment.getRespondentId()) + " " + comment.getCommentContent());
             }
             jsonObject.put("articleId",comment.getArticleId());
-            jsonObject.put("originalAuthor",comment.getOriginalAuthor());
+            //jsonObject.put("originalAuthor",comment.getOriginalAuthor());
             jsonObject.put("answerer",userService.findUsernameById(comment.getAnswererId()));
             jsonObject.put("commentDate",comment.getCommentDate().substring(0,10));
             jsonObject.put("commentContent",comment.getCommentContent());
@@ -194,7 +194,7 @@ public class CommentServiceImpl implements CommentService {
         for(Comment comment : comments){
             commentJson = new JSONObject();
             commentJson.put("articleId",comment.getArticleId());
-            commentJson.put("originalAuthor",comment.getOriginalAuthor());
+            //commentJson.put("originalAuthor",comment.getOriginalAuthor());
             commentJson.put("articleTitle",articleService.findArticleTitleByArticleIdAndOriginalAuthor(comment.getArticleId()).get ("articleTitle"));
             commentJson.put("answerer", username);
             if(comment.getPId() == 0){

@@ -15,8 +15,8 @@ import java.util.List;
 @Mapper
 public interface CommentMapper {
 
-    @Insert("insert into comment_record(articleId,originalAuthor,pId,answererId,respondentId,commentDate,likes,commentContent)" +
-            " values(#{articleId},#{originalAuthor},#{pId},#{answererId},#{respondentId},#{commentDate},#{likes},#{commentContent})")
+    @Insert("insert into comment_record(articleId,pId,answererId,respondentId,commentDate,likes,commentContent)" +
+            " values(#{articleId},#{pId},#{answererId},#{respondentId},#{commentDate},#{likes},#{commentContent})")
     void insertComment(Comment comment);
 
     @Select("select * from comment_record where articleId=#{articleId} and pId=#{pId} order by id desc")
@@ -31,10 +31,10 @@ public interface CommentMapper {
     @Select("select IFNULL(max(likes),0) from comment_record where articleId=#{articleId}  and id=#{id}")
     int findLikesByArticleIdAndOriginalAuthorAndId(@Param("articleId") long articleId,  @Param("id") long id);
 
-    @Select("select articleId,originalAuthor,pId,answererId,respondentId,commentDate,commentContent from comment_record order by id desc")
+    @Select("select articleId,pId,answererId,respondentId,commentDate,commentContent from comment_record order by id desc")
     List<Comment> findFiveNewComment();
 
-    @Select("select id,pId,articleId,originalAuthor,answererId,respondentId,commentDate,commentContent from comment_record where answererId=#{answererId} order by id desc")
+    @Select("select id,pId,articleId,answererId,respondentId,commentDate,commentContent from comment_record where answererId=#{answererId} order by id desc")
     List<Comment> getUserComment(@Param("answererId") int answererId);
 
     @Select("select count(*) from comment_record where pId=#{id}")
