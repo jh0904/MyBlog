@@ -120,7 +120,7 @@ public class SuperAdminControl {
 	 * @return 1--删除成功   0--删除失败
 	 */
 	@GetMapping("/deleteArticle")
-	@PreAuthorize("hasAnyRole('ROLE_ADMIN','ROLE_SUPERADMIN')")
+	@PreAuthorize("hasAnyRole('ROLE_ADMIN','ROLE_SUPERADMIN','ROLE_USER')")
 	public int deleteArticle(@RequestParam("id") String id) {
 		if ("".equals (id) || id == null) {
 			return 0;

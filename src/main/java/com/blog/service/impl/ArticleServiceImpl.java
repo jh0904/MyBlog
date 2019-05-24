@@ -1,18 +1,19 @@
 package com.blog.service.impl;
 
-import com.blog.mapper.UserMapper;
-import com.github.pagehelper.PageHelper;
-import com.github.pagehelper.PageInfo;
 import com.blog.component.StringAndArray;
 import com.blog.mapper.ArticleMapper;
+import com.blog.mapper.UserMapper;
 import com.blog.model.Article;
 import com.blog.service.*;
 import com.blog.utils.TimeUtil;
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -167,6 +168,7 @@ public class ArticleServiceImpl implements ArticleService {
 	}
 
 	@Override
+	@Cacheable(cacheNames="articles")
 	public JSONArray findAllArticles(String rows, String pageNo) {
 		int pageNum = Integer.parseInt (pageNo);
 		int pageSize = Integer.parseInt (rows);
